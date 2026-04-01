@@ -75,6 +75,12 @@
             "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/hooks/session-end.sh\"",
             "timeout": 30,
             "statusMessage": "Saving session state..."
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/update-obsidian-dashboard.sh\"",
+            "timeout": 15,
+            "statusMessage": "Updating Obsidian dashboard..."
           }
         ]
       }

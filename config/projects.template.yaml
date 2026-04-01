@@ -1,0 +1,28 @@
+# projects.template.yaml
+# 会社PC・個人PC等の環境向けテンプレート
+# このファイルをコピーして projects.yaml として使用してください
+#
+# Usage:
+#   cp config/projects.template.yaml config/projects.yaml
+#   # その後 projects.yaml を編集して自分の環境に合わせる
+
+# フィルタ条件
+# update-obsidian-dashboard.sh がこの値を参照します
+filters:
+  # レビュー依頼中のPRを絞り込む gh search クエリ
+  pr: 'review-requested:@me'
+  # Admin判断待ちIssueのラベル名
+  issue_label: 'admin-decision'
+
+# 管理対象リポジトリ一覧
+repositories:
+  - name: my-project
+    org: my-org
+    description: 'プロジェクトの説明'
+    default_template: dev
+
+  # 追加例:
+  # - name: another-repo
+  #   org: my-org
+  #   description: '別のリポジトリ'
+  #   default_template: research
