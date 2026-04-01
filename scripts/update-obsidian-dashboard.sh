@@ -29,11 +29,11 @@ if command -v gh &>/dev/null; then
 fi
 
 # ---- projects.yaml からリポジトリ一覧を取得 ----
-# yq があれば使い、なければ python3 でパース
+# yq → python3+PyYAML → awk の順で試行
 get_repos() {
   if command -v yq &>/dev/null; then
     yq -r '.repositories[] | .org + "/" + .name' "${PROJECTS_YAML}" 2>/dev/null
-  else
+  elif python3 -c "import yaml" &>/dev/null 2>&1; then
     python3 - "${PROJECTS_YAML}" <<'PYEOF'
 import sys, yaml
 with open(sys.argv[1]) as f:
@@ -41,6 +41,19 @@ with open(sys.argv[1]) as f:
 for r in data.get('repositories', []):
     print(r['org'] + '/' + r['name'])
 PYEOF
+  else
+    # フォールバック: awk でシンプルなYAMLをパース
+    # repositories: ブロック内の org/name ペアを抽出
+    awk '
+      /^repositories:/ { in_repos=1; next }
+      /^[a-zA-Z]/ && !/^repositories:/ { in_repos=0 }
+      in_repos && /^[[:space:]]+- name:/ { name=$NF }
+      in_repos && /^[[:space:]]+org:/ {
+        org=$NF
+        if (org != "" && name != "") print org "/" name
+        name=""
+      }
+    ' "${PROJECTS_YAML}"
   fi
 }
 
