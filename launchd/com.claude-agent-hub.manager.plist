@@ -11,15 +11,15 @@
         <string>scripts/start.sh</string>
     </array>
     <key>WorkingDirectory</key>
-    <string>/Users/zono/claude-agent-hub-mac</string>
+    <string>/Users/zono/Documents/github/claude-max-agent/claude-agent-hub-mac</string>
     <key>RunAtLoad</key>
     <false/>
     <key>KeepAlive</key>
     <false/>
     <key>StandardOutPath</key>
-    <string>/Users/zono/claude-agent-hub-mac/logs/launchd-stdout.log</string>
+    <string>/Users/zono/Documents/github/claude-max-agent/claude-agent-hub-mac/logs/launchd-stdout.log</string>
     <key>StandardErrorPath</key>
-    <string>/Users/zono/claude-agent-hub-mac/logs/launchd-stderr.log</string>
+    <string>/Users/zono/Documents/github/claude-max-agent/claude-agent-hub-mac/logs/launchd-stderr.log</string>
     <key>EnvironmentVariables</key>
     <dict>
         <key>PATH</key>
