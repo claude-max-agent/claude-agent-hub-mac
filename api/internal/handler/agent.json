@@ -1,0 +1,58 @@
+{
+  "name": "claude-agent-hub",
+  "description": "Claude Codeマルチエージェントシステム。タスク実行、コードレビュー、リサーチ、Discord連携などを提供します。",
+  "url": "",
+  "version": "1.0.0",
+  "provider": {
+    "organization": "claude-max-agent",
+    "url": "https://github.com/claude-max-agent"
+  },
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": false
+  },
+  "defaultInputModes": ["text/plain", "application/json"],
+  "defaultOutputModes": ["text/plain", "application/json"],
+  "skills": [
+    {
+      "id": "task-execution",
+      "name": "Task Execution",
+      "description": "開発タスクの自動実行。バグ修正、機能実装、リファクタリング等を処理します。",
+      "tags": ["development", "automation"],
+      "examples": [
+        "Issue #123のバグを修正して",
+        "新しいAPIエンドポイントを追加して"
+      ]
+    },
+    {
+      "id": "code-review",
+      "name": "Code Review",
+      "description": "コードレビューとフィードバック。セキュリティ、パフォーマンス、品質の観点からレビューします。",
+      "tags": ["review", "quality"],
+      "examples": [
+        "PR #45をレビューして",
+        "このコードのセキュリティをチェックして"
+      ]
+    },
+    {
+      "id": "research",
+      "name": "Research",
+      "description": "技術調査とリサーチ。ライブラリ選定、アーキテクチャ設計、ベストプラクティスの調査を行います。",
+      "tags": ["research", "analysis"],
+      "examples": [
+        "GoのHTTPフレームワークを比較して",
+        "この技術スタックの最適な構成を調査して"
+      ]
+    },
+    {
+      "id": "discord-integration",
+      "name": "Discord Integration",
+      "description": "Discord経由でのメッセージ受信・通知・エージェント間連携を行います。",
+      "tags": ["discord", "communication"],
+      "examples": [
+        "Discordチャンネルに通知を送って",
+        "エージェント間でタスクを連携して"
+      ]
+    }
+  ]
+}
