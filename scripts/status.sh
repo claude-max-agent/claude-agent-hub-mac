@@ -28,7 +28,7 @@ echo "--- Services ---"
 # Go API
 API_PID_FILE="$REPO_ROOT/logs/api.pid"
 if [ -f "$API_PID_FILE" ] && kill -0 "$(cat "$API_PID_FILE")" 2>/dev/null; then
-    echo "Go API:     RUNNING (PID: $(cat "$API_PID_FILE"), port: 8080)"
+    echo "Go API:     RUNNING (PID: $(cat "$API_PID_FILE"), port: 18080)"
 else
     echo "Go API:     STOPPED"
 fi

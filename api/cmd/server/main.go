@@ -497,7 +497,7 @@ func main() {
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8080"
+		port = "18080"
 	}
 
 	bind := os.Getenv("BIND_ADDR")

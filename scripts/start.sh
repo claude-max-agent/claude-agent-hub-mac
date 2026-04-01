@@ -41,7 +41,7 @@ if [ -f "$REPO_ROOT/api/cmd/server/main.go" ]; then
         go build -o "$REPO_ROOT/api/hub-api" ./cmd/server/ 2>/dev/null && {
             "$REPO_ROOT/api/hub-api" > "$REPO_ROOT/logs/api.log" 2>&1 &
             echo $! > "$API_PID_FILE"
-            echo "[OK] Go API started (PID: $!, port: 8080)"
+            echo "[OK] Go API started (PID: $!, port: 18080)"
         } || echo "[SKIP] Go API build failed (will set up in Phase 2)"
         cd "$REPO_ROOT"
     fi

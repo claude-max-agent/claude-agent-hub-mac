@@ -46,7 +46,7 @@ bash scripts/stop.sh
 
 ## Admin UI
 
-起動後、ブラウザで http://localhost:8080 にアクセス。
+起動後、ブラウザで http://localhost:18080 にアクセス。
 
 ## memory-engine セットアップ
 

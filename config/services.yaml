@@ -17,7 +17,7 @@ manager:
 # ===================================
 api:
   enabled: true
-  port: 8080
+  port: 18080
   bind: "127.0.0.1"                     # ローカルのみ
   db_type: sqlite
   db_path: "data/claude-hub.db"

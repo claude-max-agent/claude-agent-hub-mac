@@ -19,11 +19,11 @@
 ```
 Admin (Human)
   ├── Terminal (tmux attach -t manager) → Manager (you) ← always running
-  └── Admin UI (http://localhost:8080) → Go API → Manager
+  └── Admin UI (http://localhost:18080) → Go API → Manager
 
 Manager (you)
   ├── tmp-agent pool (pool-1 ~ pool-3): dev/research
-  └── Go API (localhost:8080) → Task CRUD, Agent State
+  └── Go API (localhost:18080) → Task CRUD, Agent State
 ```
 
 - Dedicated tmux session (always running)
@@ -147,8 +147,8 @@ Local API server for task management and agent state.
 
 ```bash
 # Task operations
-curl -s http://localhost:8080/api/v1/tasks | jq
-curl -X POST http://localhost:8080/api/v1/tasks \
+curl -s http://localhost:18080/api/v1/tasks | jq
+curl -X POST http://localhost:18080/api/v1/tasks \
   -H "Content-Type: application/json" \
   -d '{"title":"...", "description":"..."}'
 ```
@@ -168,7 +168,7 @@ tmux list-sessions
 ### 2. Go API Health Check
 
 ```bash
-curl -s http://localhost:8080/health
+curl -s http://localhost:18080/health
 ```
 
 ## Log Policy
