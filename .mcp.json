@@ -1,9 +1,8 @@
 {
   "mcpServers": {
     "memory-engine": {
-      "command": "python3",
+      "command": "services/memory-engine/.venv/bin/python",
       "args": ["-m", "memory_engine.cli", "serve"],
-      "cwd": "services/memory-engine",
       "env": {
         "MEMORY_ENGINE_DB": "${HOME}/.claude/memory.db",
         "MEMORY_ENGINE_BACKEND": "mlx",

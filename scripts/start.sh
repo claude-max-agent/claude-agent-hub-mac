@@ -49,20 +49,34 @@ else
     echo "[SKIP] Go API not yet available"
 fi
 
+# Python venv (memory-engine + MLX)
+VENV_DIR="$REPO_ROOT/services/memory-engine/.venv"
+VENV_PIP="$VENV_DIR/bin/pip"
+VENV_PYTHON="$VENV_DIR/bin/python"
+if [ ! -d "$VENV_DIR" ]; then
+    echo "[..] Creating Python venv..."
+    python3 -m venv "$VENV_DIR"
+    "$VENV_PIP" install -q -e "$REPO_ROOT/services/memory-engine" 2>/dev/null
+    "$VENV_PIP" install -q mlx-lm 2>/dev/null || true
+    echo "[OK] Python venv created"
+fi
+
 # MLX LLM Server起動 (バックグラウンド)
-if command -v mlx_lm.server &>/dev/null; then
+MLX_SERVER="$VENV_DIR/bin/mlx_lm.server"
+if [ -x "$MLX_SERVER" ]; then
     MLX_PID_FILE="$REPO_ROOT/logs/mlx.pid"
     if [ -f "$MLX_PID_FILE" ] && kill -0 "$(cat "$MLX_PID_FILE")" 2>/dev/null; then
         echo "[OK] MLX server already running (PID: $(cat "$MLX_PID_FILE"))"
     else
         echo "[..] Starting MLX LLM server..."
-        mlx_lm.server --model mlx-community/Qwen2.5-7B-Instruct-4bit --port 11434 \
+        "$MLX_SERVER" --model mlx-community/Qwen2.5-7B-Instruct-4bit --port 11434 \
             > "$REPO_ROOT/logs/mlx.log" 2>&1 &
         echo $! > "$MLX_PID_FILE"
         echo "[OK] MLX server started (PID: $!, port: 11434)"
     fi
 else
-    echo "[SKIP] MLX server not available (pip install mlx-lm)"
+    echo "[SKIP] MLX server not installed in venv"
+    echo "       Run: $VENV_PIP install mlx-lm"
 fi
 
 # Manager tmux セッション

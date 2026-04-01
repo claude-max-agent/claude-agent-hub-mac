@@ -10,6 +10,7 @@ PORT="${MLX_PORT:-11434}"
 MODEL="${MLX_MODEL:-mlx-community/Qwen2.5-7B-Instruct-4bit}"
 PID_FILE="$REPO_ROOT/logs/mlx.pid"
 LOG_FILE="$REPO_ROOT/logs/mlx.log"
+VENV_DIR="$REPO_ROOT/services/memory-engine/.venv"
 
 mkdir -p "$REPO_ROOT/logs"
 
@@ -19,15 +20,27 @@ if [ -f "$PID_FILE" ] && kill -0 "$(cat "$PID_FILE")" 2>/dev/null; then
     exit 0
 fi
 
-# mlx_lm.server の存在確認
-if ! command -v mlx_lm.server &>/dev/null; then
-    echo "ERROR: mlx_lm.server not found"
-    echo "  Install: pip install mlx-lm"
+# venv作成 (なければ)
+if [ ! -d "$VENV_DIR" ]; then
+    echo "[..] Creating Python venv..."
+    python3 -m venv "$VENV_DIR"
+    "$VENV_DIR/bin/pip" install -q -e "$REPO_ROOT/services/memory-engine"
+fi
+
+# mlx-lm インストール (なければ)
+MLX_SERVER="$VENV_DIR/bin/mlx_lm.server"
+if [ ! -x "$MLX_SERVER" ]; then
+    echo "[..] Installing mlx-lm..."
+    "$VENV_DIR/bin/pip" install -q mlx-lm
+fi
+
+if [ ! -x "$MLX_SERVER" ]; then
+    echo "ERROR: mlx_lm.server not found after install"
     exit 1
 fi
 
 echo "[..] Starting MLX server (model: $MODEL, port: $PORT)..."
-mlx_lm.server --model "$MODEL" --port "$PORT" > "$LOG_FILE" 2>&1 &
+"$MLX_SERVER" --model "$MODEL" --port "$PORT" > "$LOG_FILE" 2>&1 &
 echo $! > "$PID_FILE"
 
 # 起動待ち
