@@ -27,12 +27,12 @@ context/learnings/*
 # Build artifacts
 api/hub-api
 api/cmd/server/hub-api
-frontend/dist/
-frontend/node_modules/
+api/server
 
 # Python
 services/memory-engine/__pycache__/
 services/memory-engine/.venv/
+services/memory-engine/*.egg-info/
 *.pyc
 
 # Worktrees

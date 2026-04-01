@@ -1,5 +1,9 @@
 {
   "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["chrome-devtools-mcp@latest"]
+    },
     "memory-engine": {
       "command": "services/memory-engine/.venv/bin/python",
       "args": ["-m", "memory_engine.cli", "serve"],
