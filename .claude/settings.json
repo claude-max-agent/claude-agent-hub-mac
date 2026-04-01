@@ -1,0 +1,85 @@
+{
+  "language": "japanese",
+  "includeGitInstructions": false,
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/hooks/block-dangerous.sh\"",
+            "timeout": 5,
+            "statusMessage": "Checking command safety..."
+          }
+        ]
+      },
+      {
+        "matcher": "Agent",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/hooks/spawn-limiter.sh\"",
+            "timeout": 5,
+            "statusMessage": "Checking spawn limits..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/hooks/auto-lint.sh\"",
+            "timeout": 30,
+            "statusMessage": "Running auto-lint..."
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/hooks/scope-enforcer.sh\"",
+            "timeout": 10,
+            "statusMessage": "Checking scope constraints..."
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/hooks/session-start.sh\"",
+            "timeout": 10,
+            "statusMessage": "Restoring previous session context..."
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/hooks/session-end.sh\"",
+            "timeout": 30,
+            "statusMessage": "Saving session state..."
+          }
+        ]
+      }
+    ]
+  },
+  "model": "claude-opus-4-6",
+  "reasoning_effort": "high"
+}

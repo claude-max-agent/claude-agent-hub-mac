@@ -1,0 +1,68 @@
+# Services Configuration
+# MacBook版 — ローカル実行特化
+
+# ===================================
+# Manager Configuration
+# ===================================
+manager:
+  enabled: true
+  working_dir: .                        # リポジトリルート
+  model: inherit
+  tmux_session: "manager"
+  auto_start: true
+  max_tmp_agents: 3
+
+# ===================================
+# Go API Server
+# ===================================
+api:
+  enabled: true
+  port: 8080
+  bind: "127.0.0.1"                     # ローカルのみ
+  db_type: sqlite
+  db_path: "data/claude-hub.db"
+
+# ===================================
+# アイドル自動シャットダウン
+# ===================================
+idle_shutdown:
+  enabled: false
+  check_interval_minutes: 5
+  idle_timeout_minutes: 30
+  exclude: []
+
+# ===================================
+# メモリ監視
+# ===================================
+memory_monitor:
+  enabled: true
+  check_interval_seconds: 30
+  threshold_type: usage_rate
+  system_memory_usage_rate: 0.8
+  min_free_memory_mb: 2048
+  grace_period_seconds: 30
+
+# ===================================
+# MLX LLM Server (Ollama代替)
+# ===================================
+mlx:
+  enabled: true
+  port: 11434
+  auto_start: true
+  model: "mlx-community/Qwen2.5-7B-Instruct-4bit"
+  description: "MLX LLM Server (OpenAI compatible)"
+
+# ===================================
+# Obsidian Vault
+# ===================================
+obsidian:
+  enabled: true
+  vault_path: "~/Documents/Obsidian/claude_work"
+  categories:
+    - setup
+    - research
+    - troubleshooting
+    - project
+
+display_mode: auto
+permission_mode: bypassPermissions

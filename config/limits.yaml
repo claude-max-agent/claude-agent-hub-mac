@@ -1,0 +1,60 @@
+# System Limits Configuration
+# MacBook Pro M5 / 32GB RAM 向け
+
+# エージェント制限
+agents:
+  # tmpエージェント同時起動上限
+  max_tmp_agents: 3
+
+  # インスタンス上限（全体）
+  max_instances: 3
+
+# タスク制限
+tasks:
+  # 同時実行可能なタスク数の上限
+  max_concurrent: 3
+
+  # pending状態のタスク最大数
+  max_pending: 20
+
+  # 1タスクの最大実行時間（分）- 超過で警告
+  max_duration_minutes: 120
+
+# レート制限（API）
+rate_limits:
+  # タスク作成: 件/分
+  task_create_per_minute: 10
+
+  # メッセージ送信: 件/分/エージェント
+  message_per_minute_per_agent: 30
+
+  # API全体: リクエスト/秒
+  api_requests_per_second: 50
+
+# リソース制限
+resources:
+  # メモリ警告閾値（MB）
+  memory_warning_mb: 2048
+
+  # CPU使用率警告閾値（%）
+  cpu_warning_percent: 80
+
+  # ディスク使用率警告閾値（%）
+  disk_warning_percent: 90
+
+# 自律スコープ制約（エージェント共通）
+autonomy:
+  # 1タスクあたりの最大ファイル変更数
+  max_files_per_task: 15
+
+  # spawn深度上限
+  max_spawn_depth: 1
+
+  # 1タスクあたりのLLMコスト予算（USD）
+  max_cost_per_task_usd: 3
+
+  # メモリ下限（MB）- これ未満でspawn拒否
+  memory_spawn_block_mb: 4096
+
+  # 1イテレーションの最大実行時間（分）
+  max_iteration_minutes: 30

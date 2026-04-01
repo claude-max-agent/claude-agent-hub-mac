@@ -1,0 +1,42 @@
+# Runtime state
+.claude/state/
+agents/tmp-agents/*/
+!agents/tmp-agents/.gitkeep
+
+# Data
+data/*.db
+data/*.db-wal
+data/*.db-shm
+
+# Logs
+logs/*.log
+logs/*.jsonl
+logs/*.pid
+
+# Environment
+.env
+.env.local
+.env.1password
+
+# Context state
+context/state/*
+!context/state/.gitkeep
+context/learnings/*
+!context/learnings/.gitkeep
+
+# Build artifacts
+api/hub-api
+api/cmd/server/hub-api
+frontend/dist/
+frontend/node_modules/
+
+# Python
+services/memory-engine/__pycache__/
+services/memory-engine/.venv/
+*.pyc
+
+# Worktrees
+hub-worktrees/
+
+# macOS
+.DS_Store

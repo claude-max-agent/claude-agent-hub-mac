@@ -1,0 +1,19 @@
+# Managed Repositories
+# Manager が管理対象とするリポジトリ一覧
+
+repositories:
+  - name: claude-agent-hub-mac
+    org: claude-max-agent
+    description: "MacBook版エージェントハブ（このリポジトリ）"
+    default_template: dev
+
+  - name: claude-agent-hub
+    org: claude-max-agent
+    description: "Linux版エージェントハブ（本家）"
+    default_template: dev
+
+# 必要に応じてリポジトリを追加
+# - name: my-project
+#   org: my-org
+#   description: "..."
+#   default_template: dev
