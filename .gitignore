@@ -40,3 +40,4 @@ hub-worktrees/
 
 # macOS
 .DS_Store
+api/data/
