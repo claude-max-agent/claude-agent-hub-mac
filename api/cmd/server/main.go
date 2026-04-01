@@ -468,33 +468,6 @@ func main() {
 	agentCardHandler := handler.NewAgentCardHandler()
 	r.Get("/.well-known/agent.json", agentCardHandler.HandleGetAgentCard)
 
-	// Serve static frontend files (for production mode without Docker)
-	staticDir := os.Getenv("STATIC_DIR")
-	if staticDir == "" {
-		staticDir = "./frontend/dist"
-	}
-	if _, err := os.Stat(staticDir); err == nil {
-		log.Printf("Serving static files from %s", staticDir)
-		fileServer := http.FileServer(http.Dir(staticDir))
-		r.Get("/*", func(w http.ResponseWriter, req *http.Request) {
-			// Disable caching for HTML files (SPA)
-			if req.URL.Path == "/" || req.URL.Path == "/index.html" {
-				w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
-				w.Header().Set("Pragma", "no-cache")
-				w.Header().Set("Expires", "0")
-			}
-			// Try to serve the file
-			path := staticDir + req.URL.Path
-			if _, err := os.Stat(path); os.IsNotExist(err) {
-				// If file doesn't exist, serve index.html (SPA fallback)
-				w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
-				http.ServeFile(w, req, staticDir+"/index.html")
-				return
-			}
-			fileServer.ServeHTTP(w, req)
-		})
-	}
-
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "18080"
